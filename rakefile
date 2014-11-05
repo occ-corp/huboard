@@ -3,12 +3,13 @@ require 'bourbon'
 require "#{File.join(File.dirname(__FILE__),"public/css/scss/bourbon/lib/bourbon/sass_extensions.rb")}"
 
 desc "rebuild css files"
-task :css do 
+task :css do
   Dir.glob("**/s{a,c}ss") { |d| Sass.load_paths << d }
 
-  Dir.glob("**/s{a,c}ss") do |d|
+  Dir.glob("public/**/s{a,c}ss") do |d|
     Dir.glob("#{d}/**/*.s[ac]ss").reject {|x| File.basename(x).start_with?"_"}.each do |sass|
       cssfile = "#{d}/../#{File.basename(sass,".*")}.min.css"
+      p cssfile
       Sass.compile_file sass, cssfile, {style: :compressed }
     end
   end
@@ -16,7 +17,7 @@ end
 
 desc "rebuild js files"
 task :js do
-  Dir.glob("**/[sS]cripts").each do |d|
+  Dir.glob("public/**/[sS]cripts").each do |d|
     Dir.glob("#{d}/**/*.slicer") do |slicer|
       sh "echo #{slicer}"
       #sh "node calfslicer.js #{slicer} ./#{d} #{d}/#{File.basename(slicer, ".*")}.js"
