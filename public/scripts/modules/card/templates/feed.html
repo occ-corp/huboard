@@ -5,7 +5,7 @@
     </div>
     <% _(issue.comments).each(function(c) { %>
     <div class="card-comment">
-      <img  src="<%= c.user.avatar_url %>?s=30" />
+      <img class="avatar" src="<%= c.user.avatar_url %>?s=30" />
       <div class="comment-body">
         <%= c.body_html %>
       </div>
